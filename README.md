@@ -2,7 +2,7 @@
 
 Aplicación web educativa (mobile-first, en inglés) para aprender sobre las civilizaciones antiguas: **Egipto, Grecia y Roma**.
 
-🔗 **App publicada:** https://efrainblanco12.github.io/time-travelers/
+🔗 **App publicada:** https://timetravelers-app.github.io/
 
 ## ¿Qué hace?
 
