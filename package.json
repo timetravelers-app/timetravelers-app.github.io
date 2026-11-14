@@ -7,8 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:pages": "ng build --base-href /time-travelers/",
-    "deploy": "node scripts/deploy.mjs"
+    "build:pages": "ng build --base-href /time-travelers/"
   },
   "private": true,
   "dependencies": {

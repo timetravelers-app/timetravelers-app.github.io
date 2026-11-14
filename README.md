@@ -17,7 +17,7 @@ Aplicación web educativa (mobile-first, en inglés) para aprender sobre las civ
 
 - **Angular 19** (componentes standalone y signals), sin backend.
 - Los usuarios y puntajes se guardan en el navegador (**localStorage**). Se conservan al cerrar el navegador; se pierden si se borran los datos del sitio o en modo incógnito.
-- Publicada en **GitHub Pages** (rama `gh-pages`). Para publicar cambios: `npm run deploy`.
+- Publicada en **GitHub Pages** con GitHub Actions: cada `push` a `main` vuelve a publicar la app automáticamente.
 
 ## Estructura
 
@@ -36,5 +36,4 @@ src/app/
 ```bash
 npm install
 npm start          # http://localhost:4200
-npm run deploy     # compila y publica en GitHub Pages
 ```
