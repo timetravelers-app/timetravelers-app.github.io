@@ -8,7 +8,10 @@ export class ProgressService {
 
   private readonly progress = computed(() => this.auth.user()?.progress ?? {});
 
-  readonly completedCount = computed(() => Object.keys(this.progress()).length);
+  /** Missions passed with every answer correct. */
+  readonly completedCount = computed(
+    () => Object.values(this.progress()).filter((p) => p.bestStars === MAX_STARS).length,
+  );
   readonly totalStars = computed(() =>
     Object.values(this.progress()).reduce((sum, p) => sum + p.bestStars, 0),
   );
@@ -18,13 +21,19 @@ export class ProgressService {
     return this.progress()[missionId];
   }
 
-  isCompleted(missionId: number): boolean {
+  /** True if the mission was played at least once (it appears in the Journal). */
+  isPlayed(missionId: number): boolean {
     return !!this.get(missionId);
   }
 
-  /** Mission 1 is always open. Every other mission needs the previous one done. */
+  /** A mission is passed only when every answer was correct at least once. */
+  isPassed(missionId: number): boolean {
+    return this.get(missionId)?.bestStars === MAX_STARS;
+  }
+
+  /** Mission 1 is always open. Every other mission needs the previous one passed 100%. */
   isUnlocked(missionId: number): boolean {
-    return missionId === 1 || this.isCompleted(missionId - 1);
+    return missionId === 1 || this.isPassed(missionId - 1);
   }
 
   saveAttempt(missionId: number, answers: number[]): Attempt {

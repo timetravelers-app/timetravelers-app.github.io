@@ -24,10 +24,11 @@ export class MapComponent {
     MISSIONS.map((m) => ({
       ...m,
       unlocked: this.progress.isUnlocked(m.id),
+      passed: this.progress.isPassed(m.id),
       result: this.progress.get(m.id),
     })),
   );
 
-  /** The first mission that is open but not done yet (gets a "Next" highlight). */
-  readonly nextId = computed(() => this.missions().find((m) => m.unlocked && !m.result)?.id);
+  /** The first mission that is open but not passed yet (gets a highlight). */
+  readonly nextId = computed(() => this.missions().find((m) => m.unlocked && !m.passed)?.id);
 }

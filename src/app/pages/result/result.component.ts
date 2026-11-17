@@ -27,6 +27,8 @@ export class ResultComponent {
   readonly mission = computed(() => getMission(this.id())!);
   readonly attempt = computed(() => this.progress.get(this.id())?.last);
   readonly nextMission = computed(() => getMission(this.id() + 1));
+  /** The next mission opens only after a perfect score (best try counts). */
+  readonly passed = computed(() => this.progress.isPassed(this.id()));
 
   readonly message = computed<Message>(() => {
     const stars = this.attempt()?.stars ?? 0;
@@ -34,7 +36,7 @@ export class ResultComponent {
       return { title: 'Well done, Adventurer!', text: 'You answered every question correctly!' };
     }
     if (stars > 0) {
-      return { title: 'Good job, Explorer!', text: 'You’re halfway there. Let’s learn from the one you missed.' };
+      return { title: 'Good job, Explorer!', text: 'You’re halfway there! Review the one you missed and try again to get all 4 stars.' };
     }
     return {
       title: 'Oops! Lost in time!',

@@ -26,14 +26,14 @@
 <section class="content">
   <div class="section-title">
     <h2>Travel Map</h2>
-    <p>Finish each mission to unlock the next one.</p>
+    <p>Get every answer right to unlock the next mission.</p>
   </div>
 
   <ol class="path">
     @for (m of missions(); track m.id; let i = $index; let last = $last) {
       <li class="stop fade-up" [style.animation-delay]="0.12 + i * 0.1 + 's'" [style.--accent]="m.color">
-        <span class="node" [class.done]="m.result" [class.locked]="!m.unlocked">
-          @if (m.result) {
+        <span class="node" [class.done]="m.passed" [class.locked]="!m.unlocked">
+          @if (m.passed) {
             <app-icon name="check" [size]="16" [stroke]="3.2" />
           } @else if (!m.unlocked) {
             <app-icon name="lock" [size]="14" [stroke]="2.6" />
@@ -42,7 +42,7 @@
           }
         </span>
         @if (!last) {
-          <span class="line" [class.lit]="m.result"></span>
+          <span class="line" [class.lit]="m.passed"></span>
         }
 
         @if (m.unlocked) {
@@ -62,14 +62,16 @@
 <ng-template #cardBody let-m>
   <div class="media">
     <img [src]="m.thumb" [alt]="m.civilization" loading="lazy" width="520" height="347" />
-    <span class="era chip">{{ m.era }}</span>
+    @if (m.unlocked) {
+      <span class="era chip">{{ m.era }}</span>
+    }
     @if (m.id === nextId()) {
-      <span class="badge">{{ m.id === 1 ? 'Start here!' : 'Next stop!' }}</span>
+      <span class="badge">{{ m.result ? 'Try for 4 ⭐!' : m.id === 1 ? 'Start here!' : 'Next stop!' }}</span>
     }
     @if (!m.unlocked) {
       <div class="lock-overlay">
         <span class="lock-icon"><app-icon name="lock" [size]="26" /></span>
-        <p>Finish Mission {{ m.id - 1 }} to unlock</p>
+        <p>Get 4 ⭐ in Mission {{ m.id - 1 }} to unlock</p>
       </div>
     }
   </div>
@@ -78,9 +80,12 @@
     <h3>{{ m.title }}</h3>
     <p class="tagline">{{ m.tagline }}</p>
     <div class="foot">
-      @if (m.result) {
+      @if (m.passed) {
         <app-stars [value]="m.result.bestStars" [size]="20" />
         <span class="action">Play again <app-icon name="next" [size]="16" [stroke]="2.6" /></span>
+      } @else if (m.result) {
+        <app-stars [value]="m.result.bestStars" [size]="20" />
+        <span class="go"><app-icon name="retry" [size]="14" [stroke]="2.8" /> Try again</span>
       } @else if (m.unlocked) {
         <span class="go"><app-icon name="play" [size]="14" /> Start mission</span>
       } @else {

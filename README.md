@@ -7,7 +7,7 @@ Aplicación web educativa (mobile-first, en inglés) para aprender sobre las civ
 ## ¿Qué hace?
 
 1. El estudiante **se registra** (nombre, grado y contraseña) e **inicia sesión**.
-2. En el **Travel Map** ve 3 misiones. Cada una se desbloquea al terminar la anterior.
+2. En el **Travel Map** ve 3 misiones. Cada una se desbloquea solo cuando la anterior se supera **100% correcta** (4 ⭐).
 3. Cada misión tiene un **contexto** (tarjetas cortas y, en Egipto, una infografía con zoom) y luego un **reto de 2 preguntas**.
 4. Al terminar recibe **estrellas** (2 correctas = 4 ⭐, 1 correcta = 2 ⭐, 0 = 🙈) y una **retroalimentación** que explica por qué su respuesta estaba mal y cuál es la correcta.
 5. En **My Journal** puede volver a ver sus misiones resueltas, su calificación y la retroalimentación.

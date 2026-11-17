@@ -41,17 +41,36 @@
     </section>
 
     <footer class="actions">
-      @if (nextMission(); as next) {
-        <a class="btn btn-primary block" [routerLink]="['/mission', next.id]" replaceUrl>
-          Go to Mission {{ next.id }} <app-icon name="next" [stroke]="2.8" />
+      @if (passed()) {
+        @if (nextMission(); as next) {
+          <a class="btn btn-primary block" [routerLink]="['/mission', next.id]" replaceUrl>
+            Go to Mission {{ next.id }} <app-icon name="next" [stroke]="2.8" />
+          </a>
+        } @else {
+          <div class="finale">🏆 You visited every civilization! You are a true Time Traveler.</div>
+          <a class="btn btn-primary block" routerLink="/map">Back to the map <app-icon name="map" /></a>
+        }
+        <a class="btn btn-ghost block" [routerLink]="['/mission', m.id, 'challenge']" replaceUrl>
+          <app-icon name="retry" /> Try again
         </a>
       } @else {
-        <div class="finale">🏆 You visited every civilization! You are a true Time Traveler.</div>
-        <a class="btn btn-primary block" routerLink="/map">Back to the map <app-icon name="map" /></a>
+        <div class="locked-note">
+          <span class="lock" aria-hidden="true"><app-icon name="lock" [size]="20" /></span>
+          <p>
+            @if (nextMission(); as next) {
+              Get <strong>every answer right</strong> to unlock <strong>Mission {{ next.id }}</strong>. You can do it!
+            } @else {
+              Get <strong>every answer right</strong> to finish your journey through time. You can do it!
+            }
+          </p>
+        </div>
+        <a class="btn btn-primary block" [routerLink]="['/mission', m.id, 'challenge']" replaceUrl>
+          <app-icon name="retry" /> Try again
+        </a>
+        <a class="btn btn-ghost block" [routerLink]="['/mission', m.id]">
+          <app-icon name="book" /> Read the lesson again
+        </a>
       }
-      <a class="btn btn-ghost block" [routerLink]="['/mission', m.id, 'challenge']" replaceUrl>
-        <app-icon name="retry" /> Try again
-      </a>
     </footer>
   </div>
 }

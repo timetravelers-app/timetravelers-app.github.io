@@ -186,7 +186,7 @@ export class ProfileComponent {
     MISSIONS.map((m) => ({
       ...this.badgeInfo[m.id],
       color: m.color,
-      earned: this.progress.isCompleted(m.id),
+      earned: this.progress.isPassed(m.id),
     })),
   );
 
